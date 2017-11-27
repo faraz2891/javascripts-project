@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>student details</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body>
+<div class="container myContainer">
+	<div class="row">
+		<div class="col-sm-4 pinkBg">
+			<h2>registration</h2>
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+			  <input type="text" class="form-control" placeholder="Name" id="fullName" />
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+			  <input type="text" class="form-control" placeholder="fathers Name" id="fathrName" />
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+			  <input type="date" class="form-control" placeholder="date of birth" id="dob" />
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-users" aria-hidden="true"></i></span>
+			  <select class="form-control" placeholder="class" id="className">
+			  	<option value="" disabled selected>Select class</option>
+			  	<option>one</option>
+			  </select>
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-list-ol" aria-hidden="true"></i></span>
+			  <input type="text" class="form-control" placeholder="roll" id="rollNum" />
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-venus-mars" aria-hidden="true"></i></span>
+			  <span class="form-control" id="gender">
+			  	 	<span><i class="fa fa-male colorCf244b" aria-hidden="true"></i></span>
+				  <input type="radio" class="radioBtn" value="male" checked="checked" id="male" onClick="findGender('male')" />
+				  <span class="marginleft25"><i class="fa fa-female colorCf244b" aria-hidden="true"></i></span>
+				  <input type="radio" class="radioBtn" value="female" id="female" onClick="findGender('female')"/>
+			  </span>
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-address-book" aria-hidden="true"></i></span>
+			  <input type="text" class="form-control" placeholder="address" id="address" />
+			</div>
+			<div>
+  				<button type="button" class="registered" onclick="registeredStudent()">Registered</button>
+			</div>
+		</div>
+		<!-- right section -->
+		<div class="col-sm-8 pull-right right_Sec">
+			<table>
+  <tr>
+    <th>Name</th>
+    <th>Fathers Name</th>
+    <th>D.O.B</th>
+    <th>Age</th>
+    <th>Class</th>
+    <th>Roll</th>
+    <th>Gender</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+    <td>23</td>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+    <td><i class="fa fa-eye" aria-hidden="true"></i></td>
+     <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
+    <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+  </tr>
+  
+</table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html>
