@@ -6,7 +6,7 @@ body{
 	width: 100%;
 }
 .pinkBg{
-	background: #ed2452;
+	background: #313840;
     height: 662px;
     /*position: fixed;*/
     left: 0;
@@ -24,9 +24,9 @@ body{
 	margin-bottom: 12px;
 }
 .pinkBg .input-group-addon{
-	background: #cf244b;
+	background: #22272a;
 	color: #fff;
-	border: 1px solid #cf244b;
+	border: 1px solid #22272a;
 }
 .radioBtn{
 	    width: 30px;
@@ -45,12 +45,12 @@ body{
     font-weight: 600;
     font-size: 19px;
     margin-top: 10%;
-    background: #cf244b;
+    background: #00adeb;
     text-transform: uppercase;
-    border-bottom: 3px solid #aa1e3e;
+    border-bottom: 3px solid #017ba7;
 }
 .colorCf244b{
-	    color: #cf244b;
+	    color: #22272a;
     position: relative;
     top: -7px;
 }
