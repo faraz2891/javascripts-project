@@ -199,7 +199,9 @@ var fullName = document.getElementById('fullName'),
 	state = document.getElementById('state'),
 	pincode = document.getElementById('pincode'),
 	male = document.getElementById('male'),
-	female = document.getElementById('female');
+	female = document.getElementById('female'),
+	allStudentDetails = [],
+	idForSingleStudent = 0;
 
 	/*var fullNameValue = fullName.value,
 		fathrNameValue = fathrName.value,
@@ -269,13 +271,25 @@ function getAge(dateOfBirth){
 		currentTimeYear = currentTime.getFullYear(), 
 		currentTimeMonth = currentTime.getMonth()+1,
 		currentTimeDate =  currentTime.getDate();
-	console.log("dateOfBirth => ", dateOfBirth, "currentDate => ", currentTime);
-	console.log("dateOfBirthArry => ", dateOfBirthArry, "dateOfBirthYear" , dateOfBirthYear , "dateOfBirthMonth", dateOfBirthMonth, "dateOfBirthDate ", dateOfBirthDate);
-	console.log("currentTime => ", currentTime, "currentTimeYear" , currentTimeYear , "currentTimeMonth", currentTimeMonth, "currentTimeDate ", currentTimeDate);
+		//console.log("dateOfBirth => ", dateOfBirth, "currentDate => ", currentTime);
+		//console.log("dateOfBirthArry => ", dateOfBirthArry, "dateOfBirthYear" , dateOfBirthYear , "dateOfBirthMonth", dateOfBirthMonth, "dateOfBirthDate ", dateOfBirthDate);
+		//console.log("currentTime => ", currentTime, "currentTimeYear" , currentTimeYear , "currentTimeMonth", currentTimeMonth, "currentTimeDate ", currentTimeDate);
+
+		if(currentTimeMonth>dateOfBirthMonth){
+			return currentTimeYear-dateOfBirthYear;
+		}else if(currentTimeMonth<dateOfBirthMonth){
+			return (currentTimeYear-dateOfBirthYear)-1;
+		}else if(currentTimeMonth==dateOfBirthMonth){
+			if(currentTimeDate<dateOfBirthDate){
+				return (currentTimeYear-dateOfBirthYear)-1;
+			}else{
+				return currentTimeYear-dateOfBirthYear;
+			}
+		}
 }
 
 function dateUpDate(){
-	getAge(dob.value);
+	age.value = getAge(dob.value);
 }
 
 
@@ -290,6 +304,28 @@ function registeredStudent() {
 		addressValue = address.value,
 		stateValue = state.value,
 		pincodeValue = pincode.value;
+	var singleStudentDetails = {};
+
+	if(fullNameValue != "" && fathrNameValue != "" && dobValue != "" && selectclassOptValue != "" && rollNumValue != "" && addressValue != "" && stateValue != ""){
+		singleStudentDetails.id = idForSingleStudent++;
+		singleStudentDetails.name = fullNameValue;
+		singleStudentDetails.fathersName = fathrNameValue;
+		singleStudentDetails.dob = dobValue;
+		singleStudentDetails.age = ageValue;
+		singleStudentDetails.class = selectclassOptValue;
+		singleStudentDetails.rollNo = rollNumValue;
+		singleStudentDetails.gender = genderValue;
+		singleStudentDetails.address = addressValue;
+		singleStudentDetails.state = stateValue;
+		singleStudentDetails.pinCode = pincodeValue;
+
+		allStudentDetails.push(singleStudentDetails);
+		console.log("allStudentDetails => ", allStudentDetails)
+
+
+	}else{
+		alert('please fill all input');
+	}
 
 		console.log("fullNameValue = >", fullNameValue);
 		console.log("fathrNameValue => ", fathrNameValue);
@@ -302,5 +338,6 @@ function registeredStudent() {
 		console.log("stateValue => ", stateValue);
 		console.log("pincodeValue => ", pincodeValue);
 }
+
 
 	

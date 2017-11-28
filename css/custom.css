@@ -18,7 +18,7 @@ body{
     text-transform: uppercase;
     font-size: 31px;
     font-weight: 700;
-    margin: 20% 0 9% 0;
+    margin: 14% 0 9% 0;
 }
 .pinkBg .input-group{
 	margin-bottom: 12px;
@@ -47,6 +47,7 @@ body{
     margin-top: 10%;
     background: #cf244b;
     text-transform: uppercase;
+    border-bottom: 3px solid #aa1e3e;
 }
 .colorCf244b{
 	    color: #cf244b;
