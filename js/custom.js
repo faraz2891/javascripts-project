@@ -293,6 +293,84 @@ function dateUpDate(){
 }
 
 
+function appendValueInTable(obj){
+	parent = document.getElementById('main-table'); 
+	var tableRow = `<tr>
+					<td>${obj.name}</td>
+					<td>${obj.fathersName}</td>
+					<td>${obj.dob}</td>
+					<td>${obj.class}</td>
+					<td>${obj.gender}</td>
+					<td>${obj.state}</td>
+					<td onClick="viewChildDetails(${obj.id})"><i class="fa fa-eye" aria-hidden="true"></i></td>
+					<td onClick="editDetailsChilds(${obj.id})"><i class="fa fa-pencil" aria-hidden="true"></i></td>
+					<td onClick="deleteDetailsChilds(${obj.id})"><i class="fa fa-trash" aria-hidden="true"></i></td>
+				</tr>`;
+	parent.insertAdjacentHTML('beforeend', tableRow);
+	//console.log("tableRow ==> ", tableRow);
+}
+function resetSelectOption(selectElementId){
+	document.getElementById(selectElementId).selectedIndex = 0;
+}
+function formReset(){
+	fullName.value = '';
+	fathrName.value = '';
+	dob.value = null;
+	age.value = '';
+	resetSelectOption("selectclassOpt");
+	rollNum.value = '';
+	findGender("female");
+	address.value = '';
+	resetSelectOption("state");
+	pincode.value = '';
+	
+}
+
+function viewChildDetails(studenId){
+	var overlay = document.getElementById('overlay'),
+		currentStudentObject;
+	for(i in allStudentDetails){
+		if(allStudentDetails[i].id == studenId){
+			currentStudentObject = allStudentDetails[i];
+			break;
+		}
+	}	
+	console.log('currentStudentObject ==> ', currentStudentObject);
+	var stdntName = document.getElementsByClassName("stdntName")[0],
+		fathrNam = document.getElementsByClassName("fathrNam")[0],
+		stdntDob = document.getElementsByClassName("stdntDob")[0],
+		stdntAge = document.getElementsByClassName("stdntAge")[0],
+		sdntClass = document.getElementsByClassName("sdntClass")[0],
+		stdntRoll = document.getElementsByClassName("stdntRoll")[0],
+		stdntGendr = document.getElementsByClassName("stdntGendr")[0],
+		stdntAddrs = document.getElementsByClassName("stdntAddrs")[0],
+		stdntStat = document.getElementsByClassName("stdntStat")[0],
+		stdntPin = document.getElementsByClassName("stdntPin")[0];
+
+		stdntName.innerHTML = currentStudentObject.name;
+		fathrNam.innerHTML = currentStudentObject.fathersName;
+		stdntDob.innerHTML = currentStudentObject.dob;
+		stdntAge.innerHTML = currentStudentObject.age;
+		sdntClass.innerHTML = currentStudentObject.class;
+		stdntRoll.innerHTML = currentStudentObject.rollNo;
+		stdntGendr.innerHTML = currentStudentObject.gender;
+		stdntAddrs.innerHTML = currentStudentObject.address;
+		stdntStat.innerHTML = currentStudentObject.state;
+		stdntPin.innerHTML =  currentStudentObject.pinCode;
+		
+		overlay.style.display = "block";
+}
+function editDetailsChilds(studenId){
+	alert('edit');
+}
+function deleteDetailsChilds(studenId){
+	alert('delete');
+}
+function hideDiv(closeDivId){
+	document.getElementById(closeDivId).style.display = "none";
+}
+
+
 function registeredStudent() {
 	var fullNameValue = fullName.value,
 		fathrNameValue = fathrName.value,
@@ -305,8 +383,8 @@ function registeredStudent() {
 		stateValue = state.value,
 		pincodeValue = pincode.value;
 	var singleStudentDetails = {};
-
-	if(fullNameValue != "" && fathrNameValue != "" && dobValue != "" && selectclassOptValue != "" && rollNumValue != "" && addressValue != "" && stateValue != ""){
+	/*
+	if(fullNameValue != "" && fathrNameValue != "" && dobValue != "" && selectclassOptValue != "" && rollNumValue != "" && addressValue != "" && stateValue != ""){ */
 		singleStudentDetails.id = idForSingleStudent++;
 		singleStudentDetails.name = fullNameValue;
 		singleStudentDetails.fathersName = fathrNameValue;
@@ -320,13 +398,16 @@ function registeredStudent() {
 		singleStudentDetails.pinCode = pincodeValue;
 
 		allStudentDetails.push(singleStudentDetails);
+		appendValueInTable(singleStudentDetails);
 		console.log("allStudentDetails => ", allStudentDetails)
-
-
+	/*
 	}else{
 		alert('please fill all input');
 	}
+	*/
 
+	formReset();
+	/*
 		console.log("fullNameValue = >", fullNameValue);
 		console.log("fathrNameValue => ", fathrNameValue);
 		console.log("dobValue => ", dobValue);
@@ -337,6 +418,7 @@ function registeredStudent() {
 		console.log("addressValue => ", addressValue);
 		console.log("stateValue => ", stateValue);
 		console.log("pincodeValue => ", pincodeValue);
+	*/
 }
 
 
