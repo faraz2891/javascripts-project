@@ -244,9 +244,6 @@ function getAge(dateOfBirth){
 		currentTimeYear = currentTime.getFullYear(), 
 		currentTimeMonth = currentTime.getMonth()+1,
 		currentTimeDate =  currentTime.getDate();
-		//console.log("dateOfBirth => ", dateOfBirth, "currentDate => ", currentTime);
-		//console.log("dateOfBirthArry => ", dateOfBirthArry, "dateOfBirthYear" , dateOfBirthYear , "dateOfBirthMonth", dateOfBirthMonth, "dateOfBirthDate ", dateOfBirthDate);
-		//console.log("currentTime => ", currentTime, "currentTimeYear" , currentTimeYear , "currentTimeMonth", currentTimeMonth, "currentTimeDate ", currentTimeDate);
 
 		if(currentTimeMonth>dateOfBirthMonth){
 			return currentTimeYear-dateOfBirthYear;
@@ -264,7 +261,6 @@ function getAge(dateOfBirth){
 function dateChange(){
 	age.value = getAge(dob.value);
 }
-
 
 function appendChildDetailsInTable(obj , typeReg){
 	parent = document.getElementById('main-table'); 
@@ -286,8 +282,7 @@ function appendChildDetailsInTable(obj , typeReg){
 	}else if(typeReg == "updateReg"){
 		var oldElement = document.getElementById('table'+obj.id);
 		oldElement.outerHTML = tableRow;
-	}
-	
+	}	
 	//console.log("tableRow ==> ", tableRow);
 }
 function resetSelectOption(selectElementId){
@@ -306,7 +301,6 @@ function formReset(){
 	pincode.value = '';
 	
 }
-
 function viewChildDetails(studenId){
 	var overlay = document.getElementById('overlay'),
 		currentStudentObject;
@@ -368,9 +362,7 @@ function editDetailsChilds(studenId){
 	hideDom('registeredBtn');
 	showDom('updateBtn');
 
-	document.getElementById('updateBtn').setAttribute('data-childId', studenId);
-
-	
+	document.getElementById('updateBtn').setAttribute('data-childId', studenId);	
 }
 function deleteDetailsChilds(studenId){
 	var currentStudentObjIndex;
@@ -431,10 +423,11 @@ function genderChange(genderr){
 }
 
 function registeredStudent() {
-	var singleStudentDetails = {};
-	/*
+	var singleStudentDetails = {},
+		currentDate = new Date();
+	
 	if(fullNameValue != "" && fathrNameValue != "" && dobValue != "" && selectclassOptValue != "" && rollNumValue != "" && addressValue != "" && stateValue != ""){ */
-		singleStudentDetails.id = idForSingleStudent++;
+		singleStudentDetails.id = currentDate.getFullYear().toString().substr(2,2)+currentDate.getMonth()+currentDate.getDate()+currentDate.getHours()+currentDate.getMinutes()+currentDate.getSeconds();
 		singleStudentDetails.name = fullName.value;
 		singleStudentDetails.fathersName = fathrName.value;
 		singleStudentDetails.dob = dob.value;
@@ -448,14 +441,12 @@ function registeredStudent() {
 		allStudentDetails.push(singleStudentDetails);
 		appendChildDetailsInTable(singleStudentDetails, 'newReg');
 		console.log("allStudentDetails => ", allStudentDetails);
+		formReset();
 		//console.log("gender registraion = >", gender,  gender.value);
-	/*
 	}else{
 		alert('please fill all input');
 	}
-	*/
-
-	formReset();
+		
 }
 
 
