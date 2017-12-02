@@ -1,4 +1,5 @@
-	var classObj = [
+
+var classObj = [
 	{
 		"class":"one",
 		"id":1
@@ -426,7 +427,7 @@ function registeredStudent() {
 	var singleStudentDetails = {},
 		currentDate = new Date();
 	
-	if(fullNameValue != "" && fathrNameValue != "" && dobValue != "" && selectclassOptValue != "" && rollNumValue != "" && addressValue != "" && stateValue != ""){ */
+	if(fullName.value != "" && fathrName.value != "" && dob.value != "" && selectclassOpt.value != "" && rollNum.value != "" && address.value != "" && state.value != ""){
 		singleStudentDetails.id = currentDate.getFullYear().toString().substr(2,2)+currentDate.getMonth()+currentDate.getDate()+currentDate.getHours()+currentDate.getMinutes()+currentDate.getSeconds();
 		singleStudentDetails.name = fullName.value;
 		singleStudentDetails.fathersName = fathrName.value;
