@@ -34,8 +34,8 @@ body{
         position: relative;
     top: -2px;
 }
-.pinkBg .registered{
-	    display: block;
+.pinkBg .blueBtn{
+	display: block;
     width: 70%;
     margin: 0 auto;
     border-radius: 0;
@@ -86,8 +86,8 @@ th:nth-child(5){
 th:nth-child(6){
     width: 170px;
 }
-th:nth-child(1){
-    width: 170px;
+th:nth-child(7){
+    width: 120px;
 }
 td, th {
     border: 1px solid #dddddd;
@@ -102,8 +102,8 @@ th{
 }
 .fa-eye, .fa-pencil, .fa-trash{
     cursor: pointer;
+    padding: 4px 7px;
 }
-
 tr:nth-child(even) {
     background-color: #dddddd;
 }
@@ -142,4 +142,7 @@ tr:nth-child(even) {
     right: 5%;
     font-size: 30px;
     color: #fff;
+}
+.pinkBg .hideit{
+    display: none;
 }

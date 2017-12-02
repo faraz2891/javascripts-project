@@ -203,27 +203,8 @@ var fullName = document.getElementById('fullName'),
 	allStudentDetails = [],
 	idForSingleStudent = 0;
 
-	/*var fullNameValue = fullName.value,
-		fathrNameValue = fathrName.value,
-		dobValue = dob.value,
-		ageValue = age.value,
-		selectclassOptValue = selectclassOpt.value,
-		rollNumValue = rollNum.value,
-		genderValue = gender.value,
-		addressValue = address.value,
-		stateValue = state.value,
-		pincodeValue = pincode.value;*/
-
-	/*console.log("fullNameValue = >", fullNameValue);
-	console.log("fathrNameValue => ", fathrNameValue);
-	console.log("dobValue => ", dobValue);
-	console.log("ageValue => ", ageValue);
-	console.log("selectclassOptValue => ", selectclassOptValue);
-	console.log("rollNumValue => ", rollNumValue);
-	console.log("genderValue => ", genderValue);
-	console.log("addressValue => ", addressValue);
-	console.log("stateValue => ", stateValue);
-	console.log("pincodeValue => ", pincodeValue);*/
+	//console.log('gender global = > ', gender.value);
+	
 
 	// create select option from object
 function selectOptionCreate(selectId , ObjectName, keyName){
@@ -237,20 +218,12 @@ function selectOptionCreate(selectId , ObjectName, keyName){
 selectOptionCreate("selectclassOpt", classObj , "class");
 selectOptionCreate("state", stateWithPinCode , "state");
 
-function findGender(getGender){
-	male.checked = false;
-	female.checked = false;
-	document.getElementById(getGender).checked = true;
-	gender = document.getElementById(getGender);
-	//console.log("gender value = >", gender.value)
-}
-
-function getselectClassName(){
+function classNameChange(){
 	selectclassOptValue = selectclassOpt.value;
 	//console.log("selectclassOptValue ==> ", selectclassOptValue);
 }
 
-function getStateName(){
+function stateNameChange(){
 	stateValue = state.value;
 	//update pincode
 	for(indx in stateWithPinCode){
@@ -288,25 +261,33 @@ function getAge(dateOfBirth){
 		}
 }
 
-function dateUpDate(){
+function dateChange(){
 	age.value = getAge(dob.value);
 }
 
 
-function appendValueInTable(obj){
+function appendChildDetailsInTable(obj , typeReg){
 	parent = document.getElementById('main-table'); 
-	var tableRow = `<tr>
+	var tableRow = `<tr id="table${obj.id}">
 					<td>${obj.name}</td>
 					<td>${obj.fathersName}</td>
 					<td>${obj.dob}</td>
 					<td>${obj.class}</td>
 					<td>${obj.gender}</td>
 					<td>${obj.state}</td>
-					<td onClick="viewChildDetails(${obj.id})"><i class="fa fa-eye" aria-hidden="true"></i></td>
-					<td onClick="editDetailsChilds(${obj.id})"><i class="fa fa-pencil" aria-hidden="true"></i></td>
-					<td onClick="deleteDetailsChilds(${obj.id})"><i class="fa fa-trash" aria-hidden="true"></i></td>
+					<td class="allIcon">
+						<i class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" title="show details" onClick="viewChildDetails(${obj.id})"></i>
+						<i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" title="edit" onClick="editDetailsChilds(${obj.id})"></i>
+						<i class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" title="delete" onClick="deleteDetailsChilds(${obj.id})"></i>
+					</td>
 				</tr>`;
-	parent.insertAdjacentHTML('beforeend', tableRow);
+	if(typeReg == "newReg"){
+		parent.insertAdjacentHTML('beforeend', tableRow);
+	}else if(typeReg == "updateReg"){
+		var oldElement = document.getElementById('table'+obj.id);
+		oldElement.outerHTML = tableRow;
+	}
+	
 	//console.log("tableRow ==> ", tableRow);
 }
 function resetSelectOption(selectElementId){
@@ -319,7 +300,7 @@ function formReset(){
 	age.value = '';
 	resetSelectOption("selectclassOpt");
 	rollNum.value = '';
-	findGender("female");
+	genderChange("female");
 	address.value = '';
 	resetSelectOption("state");
 	pincode.value = '';
@@ -346,7 +327,7 @@ function viewChildDetails(studenId){
 		stdntAddrs = document.getElementsByClassName("stdntAddrs")[0],
 		stdntStat = document.getElementsByClassName("stdntStat")[0],
 		stdntPin = document.getElementsByClassName("stdntPin")[0];
-
+		
 		stdntName.innerHTML = currentStudentObject.name;
 		fathrNam.innerHTML = currentStudentObject.fathersName;
 		stdntDob.innerHTML = currentStudentObject.dob;
@@ -357,49 +338,117 @@ function viewChildDetails(studenId){
 		stdntAddrs.innerHTML = currentStudentObject.address;
 		stdntStat.innerHTML = currentStudentObject.state;
 		stdntPin.innerHTML =  currentStudentObject.pinCode;
-		
+	
+		//console.log(stdntName, fathrNam, stdntDob, stdntAge, sdntClass, stdntRoll, stdntGendr, stdntAddrs, stdntStat, stdntPin);
 		overlay.style.display = "block";
 }
 function editDetailsChilds(studenId){
-	alert('edit');
+	var currentStudentObject,
+		currentObjIndex;
+	for(var indx in allStudentDetails){
+		if(allStudentDetails[indx].id == studenId){
+			currentObjIndex = indx;
+			currentStudentObject = allStudentDetails[indx];
+			break;
+		}
+	}
+	console.log("currentStudentObject ==> ", currentStudentObject);
+
+	fullName.value = currentStudentObject.name;
+	fathrName.value = currentStudentObject.fathersName;
+	dob.value = currentStudentObject.dob;
+	age.value = currentStudentObject.age;
+	selectclassOpt.value = currentStudentObject.class;
+	rollNum.value = currentStudentObject.rollNo;
+	genderChange(currentStudentObject.gender);
+	address.value = currentStudentObject.address;
+	state.value = currentStudentObject.state;
+	pincode.value = currentStudentObject.pinCode;
+
+	hideDom('registeredBtn');
+	showDom('updateBtn');
+
+	document.getElementById('updateBtn').setAttribute('data-childId', studenId);
+
+	
 }
 function deleteDetailsChilds(studenId){
-	alert('delete');
+	var currentStudentObjIndex;
+	for(var indx in allStudentDetails){
+		if(allStudentDetails[indx].id == studenId){
+			currentStudentObjIndex = indx;
+			break;
+		}
+	}
+	allStudentDetails.splice(currentStudentObjIndex, 1);
+	document.getElementById("table"+studenId).remove();
+	console.log("allStudentDetails==> ", allStudentDetails);
 }
-function hideDiv(closeDivId){
-	document.getElementById(closeDivId).style.display = "none";
+function hideDom(hideDomId){
+	document.getElementById(hideDomId).style.display = "none";
+}
+function showDom(showDomId){
+	document.getElementById(showDomId).style.display = "block";
 }
 
+function updateChildDetails(){
+	var currentStudentId = document.getElementById('updateBtn').getAttribute('data-childId'),
+		currentStudentIndex;
+	var singleStudentUpdatedDetails = {};
+		singleStudentUpdatedDetails.id = currentStudentId;
+		singleStudentUpdatedDetails.name = fullName.value;
+		singleStudentUpdatedDetails.fathersName = fathrName.value;
+		singleStudentUpdatedDetails.dob = dob.value;
+		singleStudentUpdatedDetails.age = age.value;
+		singleStudentUpdatedDetails.class = selectclassOpt.value;
+		singleStudentUpdatedDetails.rollNo = rollNum.value;
+		singleStudentUpdatedDetails.gender = gender.value;
+		singleStudentUpdatedDetails.address = address.value;
+		singleStudentUpdatedDetails.state = state.value;
+		singleStudentUpdatedDetails.pinCode = pincode.value;
+
+		for(var indx in allStudentDetails){
+			if(allStudentDetails[indx].id == parseInt(currentStudentId)){
+				allStudentDetails[indx] = singleStudentUpdatedDetails; //replace with updated child detail
+				break;
+			}
+		}
+
+		appendChildDetailsInTable(singleStudentUpdatedDetails, 'updateReg');
+		//console.log("tableRow ==> ", tableRow);
+		console.log("allStudentDetails => ", allStudentDetails);
+		hideDom('updateBtn');
+		showDom('registeredBtn');
+		formReset();
+}
+
+function genderChange(genderr){
+	male.checked = false;
+	female.checked = false;
+	document.getElementById(genderr).checked = true;
+	gender = document.getElementById(genderr);
+	//console.log("gender genderChange = >", gender,  gender.value);
+}
 
 function registeredStudent() {
-	var fullNameValue = fullName.value,
-		fathrNameValue = fathrName.value,
-		dobValue = dob.value,
-		ageValue = age.value,
-		selectclassOptValue = selectclassOpt.value,
-		rollNumValue = rollNum.value,
-		genderValue = gender.value,
-		addressValue = address.value,
-		stateValue = state.value,
-		pincodeValue = pincode.value;
 	var singleStudentDetails = {};
 	/*
 	if(fullNameValue != "" && fathrNameValue != "" && dobValue != "" && selectclassOptValue != "" && rollNumValue != "" && addressValue != "" && stateValue != ""){ */
 		singleStudentDetails.id = idForSingleStudent++;
-		singleStudentDetails.name = fullNameValue;
-		singleStudentDetails.fathersName = fathrNameValue;
-		singleStudentDetails.dob = dobValue;
-		singleStudentDetails.age = ageValue;
-		singleStudentDetails.class = selectclassOptValue;
-		singleStudentDetails.rollNo = rollNumValue;
-		singleStudentDetails.gender = genderValue;
-		singleStudentDetails.address = addressValue;
-		singleStudentDetails.state = stateValue;
-		singleStudentDetails.pinCode = pincodeValue;
-
+		singleStudentDetails.name = fullName.value;
+		singleStudentDetails.fathersName = fathrName.value;
+		singleStudentDetails.dob = dob.value;
+		singleStudentDetails.age = age.value;
+		singleStudentDetails.class = selectclassOpt.value;
+		singleStudentDetails.rollNo = rollNum.value;
+		singleStudentDetails.gender = gender.value;
+		singleStudentDetails.address = address.value;
+		singleStudentDetails.state = state.value;
+		singleStudentDetails.pinCode = pincode.value;
 		allStudentDetails.push(singleStudentDetails);
-		appendValueInTable(singleStudentDetails);
-		console.log("allStudentDetails => ", allStudentDetails)
+		appendChildDetailsInTable(singleStudentDetails, 'newReg');
+		console.log("allStudentDetails => ", allStudentDetails);
+		//console.log("gender registraion = >", gender,  gender.value);
 	/*
 	}else{
 		alert('please fill all input');
@@ -407,18 +456,6 @@ function registeredStudent() {
 	*/
 
 	formReset();
-	/*
-		console.log("fullNameValue = >", fullNameValue);
-		console.log("fathrNameValue => ", fathrNameValue);
-		console.log("dobValue => ", dobValue);
-		console.log("ageValue => ", ageValue);
-		console.log("selectclassOptValue => ", selectclassOptValue);
-		console.log("rollNumValue => ", rollNumValue);
-		console.log("genderValue => ", genderValue);
-		console.log("addressValue => ", addressValue);
-		console.log("stateValue => ", stateValue);
-		console.log("pincodeValue => ", pincodeValue);
-	*/
 }
 
 
